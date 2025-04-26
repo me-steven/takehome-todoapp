@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "/ViCT5Sv7Qc=",
+  "success": true,
+  "projectFilePath": "F:\\dotnet\\takehome\\ToDoApp\\ToDoApp.Server\\ToDoApp.Server.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\steve\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.4\\microsoft.aspnetcore.openapi.9.0.4.nupkg.sha512",
+    "C:\\Users\\steve\\.nuget\\packages\\microsoft.aspnetcore.spaproxy\\9.0.4\\microsoft.aspnetcore.spaproxy.9.0.4.nupkg.sha512",
+    "C:\\Users\\steve\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}
