@@ -5,6 +5,8 @@ export default {
     data() {
         return {
             searchQuery: ref(''),
+            newTaskName: '',
+            newTaskDescription: '',
             filter: {
                 isActive: true
             },
@@ -30,6 +32,21 @@ export default {
         )
         },
 
+    },
+    methods: {
+        deleteTask(id) {
+            this.tasks = this.tasks.filter(task => task.id !== id);
+        },
+        addTask() {
+            this.newTask = {
+                id: this.tasks.length + 1,
+                name: this.newTaskName.trim(),
+                description: this.newTaskDescription.trim(),
+                isActive: true
+            };
+            this.tasks.push(this.newTask);
+            this.newTaskName = this.newTaskDescription = '';
+        }
     }
 }
 </script>
@@ -37,51 +54,70 @@ export default {
 <template>
     <div id="todo-list">
         <h1>Things To Do</h1>
-        <table>
-            <thead>
-                <tr id="subHeader">
-                    <th>
-                        Task Name
-                    </th>
-                    <th colspan="2">
-                        Description
-                    </th>
-                    <th>
-                        Action
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr id="filterBar">
+        <tr id="filterBar">
                     <td><input type="text" v-model="searchQuery" placeholder="Search for tasks" /></td>
                     <td></td>
                     <td></td>
                     <td></td>
                 </tr>
+        <table>
+            <thead>
+                <tr id="subHeader">
+                    <th class="taskName">
+                        Task Name
+                    </th>
+                    <th class="taskDescription">
+                        Description
+                    </th>
+
+                    <th class="action">
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                
                 <tr class="completionHeader">In Progress</tr>
                 <tr v-for="task in activeTasks" :key="task.id" class="inProgress content">
                     <td class="taskName">{{ task.name }}</td>
                     <td class="taskDescription">{{ task.description }}</td>
-                    <td class="action">
+                    <td class="updateProgress">
                         <button @click="task.isActive = !task.isActive">
                             {{ task.isActive ? "Mark Completed" : "Mark InProgress" }}
                         </button>
+                    </td>
+                    <td class="delete">
+                        <button @click="deleteTask(task.id)">Delete</button>
                     </td>
                 </tr>
             </tbody>
             <tbody>
                 <tr class="completionHeader">Completed</tr>
                 <tr v-for="task in completedTasks" :key="task.id" class="completed content">
-                    <td>{{ task.name }}</td>
-                    <td>{{ task.description }}</td>
-                    <td>
+                    <td class="taskName">{{ task.name }}</td>
+                    <td class="taskDescription">{{ task.description }}</td>
+                    <td class="updateProgress">
                         <button @click="task.isActive = !task.isActive">
                       {{ task.isActive ? "Mark Completed" : "Mark In Progress" }}
                         </button>
                     </td>
+                    <td class="delete">
+                        <button @click="deleteTask(task.id)">Delete</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
+        <tr id="addTask">
+            <td class="taskName">
+                <input type="text" v-model="newTaskName" placeholder="New Task Name" />
+            </td>
+            <td class="taskDescription">
+                <input type="text" v-model="newTaskDescription" placeholder="New Task Description" />
+            </td>
+            <td class="action">
+                <button  text="Add Task" @click="addTask" >Add Task</button>
+            </td>
+        </tr>
 
     </div>
 </template>
@@ -89,12 +125,18 @@ export default {
 
 <style scoped>
 
+h1 {
+    text-align: center;
+}
+
 table {
     justify-content: center;
     align-items: top;
     border: 2px dashed grey;
     background-color: rgba(200,200,200, .1);
     min-width: 100%;
+    padding: 1px;
+    margin: 3px;
 }
 
 thead {
@@ -103,9 +145,8 @@ thead {
 }
 
 tr {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+    display: grid;
+    justify-content: space-between;
     width: 100%;
 }
 
@@ -134,15 +175,51 @@ td {
     background-color: rgba(100,200,100,.5);
 }
 
-#subHeader {
+.taskName {
     display: flex;
-    align-items: left;
+    grid-area: taskName;
 }
 
-h1 {
-    text-align: center;
+.taskDescription {
+    display: flex;
+    grid-area: taskDescription;
 }
 
+.delete {
+    display: flex;
+    grid-area: delete;
+}
+
+.updateProgress {
+    display: flex;
+    grid-area: update;
+}
+
+.content {
+    display: grid;
+    grid-template-areas: "taskName taskDescription update delete";
+    grid-template-columns: 1fr 3fr 1fr 1fr;
+    justify-content: space-around;
+}
+
+.action {
+    display: flex;
+    grid-area: action;
+}
+
+#subHeader {
+    display: grid;
+    grid-template-areas: "taskName taskDescription action";
+    grid-template-columns: 1fr 3fr 1fr;
+    justify-content: space-around;
+}
+
+#addTask {
+    display: grid;
+    grid-template-areas: "taskName taskDescription action";
+    grid-template-columns: 1fr 3fr 1fr;
+    justify-content: space-around;
+}
 
 
 </style>
