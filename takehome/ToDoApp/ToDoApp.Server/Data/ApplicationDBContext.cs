@@ -5,6 +5,6 @@ namespace ToDoApp.Server.Data
 {
     public class ApplicationDBContext : DbContext {
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options) : base(options) { }
-        public DbSet<appTask> Tasks { get; set; } = null!;
+        public DbSet<AppTask> Tasks { get; set; } = null!;
     }
 }
