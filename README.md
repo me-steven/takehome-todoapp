@@ -18,7 +18,7 @@ After running the instance you'll be given an interface that opens in a browser.
 
 Above the table is a search bar that allows the user to filter by names and below are inputs to submit a new task with name and description.
 
-If everything is configured correctly the table will reference a database and fill with tasks from that table.
+If everything is configured correctly the table will reference a database and fill with tasks from that database table.
 
 **!! If it's not configured correctly it will populate with generic tasks !!**
 
@@ -106,7 +106,7 @@ After serving your tasks you'll have the option to update the completion status 
 
 Another option you have is to 'Delete' any of the tasks. This is just a 'Delete' request sent to the server with the Tasks UUID. If the server returns 'No Content'(which is a success for Delete requests) it'll update the frontend.
 
-You will also have the option to add new tasks as long as you fill out the 'Task Name' and 'Task Description' fields. Upon hitting 'Add Task' you'll perform a POST request and if that's all good the front end updates.
+You will also have the option to add new tasks as long as you fill out the 'Task Name' and 'Task Description' fields. Upon hitting 'Add Task' you'll perform a POST request and if the server successfully adds it to your database the frontend will update with your new task.
 
 The only other option you have as a user is to search through the tasks on the table. This is a mostly straightforward filter applied to the tasks that are in the tasks array.
 
@@ -128,4 +128,4 @@ Most things should be fairly self-explanatory but I will cover the UUID and Epoc
 
 UUID stands for Universal Unique IDentifier. It is a standardized format that all but guarantees that something will have a totally unique id for whatever you are working on. We will only start seeing duplicate keys in about 2 decades and unless you are using 2^122 entries in your database, none of them should occur in your projects. So for unique tasks I decided that I would go for UUID. The standard is to use a 'SERIAL' id which is really just an integer that increments for every entry added to a database. SERIAL would be sufficient for this use case but I wasn't very satisfied with it and wanted to implement UUID.
 
-EpochTime is simply the milliseconds since time began at Midnight, January 1st, 1970. At least that's when computers think that's when time started. I added it in case it would be helpful for any future debugging and in case I wanted to add a composite key to my database but in the project's final form it's mostly vestigial.
+EpochTime is simply the milliseconds since time began at Midnight, January 1st, 1970. At least that's when computers think that's when time started. I added it in case it would be helpful for any future debugging and in case I wanted to add a composite key to my database but in the project's final form it's mostly vestigial and serves as a way to look up the creation date of the task.
