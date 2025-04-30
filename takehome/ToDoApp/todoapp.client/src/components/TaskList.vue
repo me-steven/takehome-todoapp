@@ -40,8 +40,9 @@ export default {
     methods: {
         async updateProgress(uuid, changingTask) {
             try {
-                changingTask.isActive = !changingTask.isActive;
-                const response = await axios.put(`/api/tasks/${uuid}`, changingTask);
+                let duplicateTask = changingTask
+                duplicateTask.isActive = !changingTask.isActive;
+                const response = await axios.put(`/api/tasks/${uuid}`, duplicateTask);
                 if (response.status === 200) {
                     this.tasks = this.tasks.map(task => {
                         if (task.uuid === uuid) {
