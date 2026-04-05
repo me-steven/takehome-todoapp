@@ -1,7 +1,7 @@
 To Do Application
 =====
 
-Utilizes .NET for the backend and a Vue.js frontend.
+Utilizes .NET backend to manage tasks that are stored on a SQL server(managed with SSMS) and a Vue.js frontend.
 
 Functionality:
 ------
